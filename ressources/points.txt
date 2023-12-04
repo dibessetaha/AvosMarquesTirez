@@ -1,11 +1,21 @@
 
-1 0
-2 0
-3 0
-4 0
-5 0
-6 0
-7 0
-8 0
-9 0
-10 0
+ Tir 1, 0
+ Tir 2, 0
+ Tir 3, 0
+ Tir 4, 0
+ Tir 5, 0
+ Tir 6, 0
+ Tir 7, 0
+ Tir 8, 0
+ Tir 9, 0
+ Tir 10, 0
+ Tir 11, 0
+ Tir 12, 0
+ Tir 13, 0
+ Tir 14, 0
+ Tir 15, 0
+ Tir 16, 0
+ Tir 17, 0
+ Tir 18, 0
+ Tir 19, 0
+ Tir 20, 0

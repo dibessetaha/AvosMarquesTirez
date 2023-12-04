@@ -5,10 +5,6 @@ public class JeuFlechettes {
 
     private String[] coordonnees ;
 
-    private double[] angles ;
-
-    private double[] vitesses ;
-
     private int[] pointage = {100,50,25,0} ;
 
     public String[] getCoordonnees() {
@@ -22,7 +18,7 @@ public class JeuFlechettes {
 
     public String[] lireCoordonneesDepuisFichier(String nomFichier) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ressources/" + nomFichier));
+            BufferedReader reader = new BufferedReader(new FileReader(nomFichier));
             String line;
             int i = 0;
             int taille = calculerLesLignesDuFichier(nomFichier) ;
@@ -56,23 +52,50 @@ public class JeuFlechettes {
     }
 
 
-    public  void enregistrerLesPoints(String[] coordonnees) {
-        double[][] coordonees = convertirEnTableauDeDoubles(coordonnees) ;
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("ressources/points.txt"));
-            for (int i = 0 ; i<coordonees.length ; i++) {
-                double angle = coordonees[i][0];
-                double vitesse = coordonees[i][1];
-                double tImpact = calculerTempsImpact(vitesse, angle);
-                double position = calculerPosition(vitesse, angle, tImpact);
-                int pointage = calculerPointage(position);
-                writer.write("\n" + (int)(i+1) + " " + pointage);
-
+    public void enregistrerLesPointsTries(String[] coordonnees) {
+        double[][] coordonees = convertirEnTableauDeDoubles(coordonnees);
+        double[] positions = new double[coordonnees.length];
+        int[] points = new int[coordonnees.length];
+        for (int i = 0; i < coordonees.length; i++) {
+            double angle = coordonees[i][0];
+            double vitesse = coordonees[i][1];
+            double tImpact = calculerTempsImpact(vitesse, angle);
+            double position = calculerPosition(vitesse, angle, tImpact);
+            int pointage = calculerPointage(position);
+            positions[i] = position;
+            points[i] = pointage;
+        }
+        // Appeler la méthode pour trier les positions et points
+        trierPoints(positions, points);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("ressources/points.txt"))) {
+            for (int i = 0; i < coordonees.length; i++) {
+                // Écrire le tir et le pointage dans le fichier points.txt
+                writer.write("\n Tir " + (i + 1) + ", " + points[i]);
             }
             writer.close();
             afficherFichier("ressources/points.txt");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void trierPoints(double[] positions, int[] points) {
+        int n = points.length;
+        for (int i = 0; i < n - 1; i++) {
+            int maxIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (points[j] > points[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+            // Échange des positions
+            double tempPosition = positions[i];
+            positions[i] = positions[maxIndex];
+            positions[maxIndex] = tempPosition;
+            // Échange des points
+            int tempPoint = points[i];
+            points[i] = points[maxIndex];
+            points[maxIndex] = tempPoint;
         }
     }
 

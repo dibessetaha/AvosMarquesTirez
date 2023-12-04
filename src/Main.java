@@ -24,7 +24,7 @@ public class Main {
                 flechettes.setCoordonnees(tableauCoordonnees);
                 break;
             case 2:
-                flechettes.setCoordonnees(flechettes.lireCoordonneesDepuisFichier("coord.txt"));
+                flechettes.setCoordonnees(flechettes.lireCoordonneesDepuisFichier("ressources/coord.txt"));
                 break;
             default:
                 System.out.println("Choix invalide");
@@ -37,7 +37,7 @@ public class Main {
                 flechettes.jouerPartie(flechettes.getCoordonnees());
                 break;
             case 2:
-                flechettes.enregistrerLesPoints(flechettes.getCoordonnees());
+                flechettes.enregistrerLesPointsTries(flechettes.getCoordonnees());
                 break;
             case 3:
                 flechettes.calculerEtEstiméeHauteurMaximale(flechettes.getCoordonnees());
